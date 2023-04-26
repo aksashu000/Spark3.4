@@ -4,6 +4,8 @@ import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.{col, struct}
 import org.apache.spark.sql.types.{StringType, StructType}
+import scala.reflect.io.Directory
+import java.io.File
 
 object SparkFeatures{
   def getSparkSession: SparkSession = {
@@ -61,20 +63,42 @@ object SparkFeatures{
   def datasetToStructType(sparkSession: SparkSession): Unit ={
     import sparkSession.implicits._
 
-    val innerFields = new StructType().add("J", StringType).add("I", StringType)
+    val innerFields = new StructType().add("Name", StringType).add("ID", StringType)
     val schema = new StructType().add("struct", innerFields, nullable = false)
-    val df = Seq("a" -> "b").toDF("i", "j").select(struct(col("i"), col("j")).as("struct")).to(schema)
-    assert(df.schema == schema)
-    val result = df.collect()
-    println(result.mkString("Array(", ", ", ")"))
+    val df = Seq("1001" -> "Ashutosh Kumar").toDF("ID", "Name")
+    println(df.collect().mkString(","))
+    val df2 = df.select(struct(col("ID"), col("Name")).as("struct")).to(schema)
+    println(df2.collect().mkString(","))
   }
 
+  /*
+  Apache Spark 3.4 now supports the ability to construct parameterized SQL queries. This makes queries more reusable and improves
+  security by preventing SQL injection attacks. The SparkSession API is now extended with an override of the sql method which
+  accepts a map where the keys are parameter names, and the values are Scala/Java literals:
+  => def sql(sqlText: String, args: Map[String, Any]): DataFrame
+  With this extension, the SQL text can now include named parameters in any positions where constants such as literal values are allowed.
+   */
+  def parameterizedSQL(spark: SparkSession): Unit ={
+    spark.sql("CREATE TABLE test_parameterized_sql (id INT, name STRING) USING PARQUET")
+    spark.sql("INSERT INTO test_parameterized_sql values (1001, 'Ashutosh')")
+    spark.sql("INSERT INTO test_parameterized_sql values (1002, 'Kumar')")
+    spark.sql("select * from test_parameterized_sql where id < :maxId", Map("maxId" -> 1002)).show(false)
+  }
+
+  /*
+   When you run this program the first time, a 'spark-warehouse' directory gets created. Subsequent runs will fail.
+   So, I have included a couple of lines to delete the 'spark-warehouse' directory during every run.
+   Happy Learning!!!
+    */
   def main(args: Array[String]): Unit = {
+    val directory = new Directory(new File("./spark-warehouse"))
+    directory.deleteRecursively()
     Logger.getLogger("org").setLevel(Level.ERROR)
     val spark = getSparkSession
     defaultValues(spark)
     timeStampWithoutTimezone(spark)
     columnAliasReference(spark)
     datasetToStructType(spark)
+    parameterizedSQL(spark)
   }
 }
