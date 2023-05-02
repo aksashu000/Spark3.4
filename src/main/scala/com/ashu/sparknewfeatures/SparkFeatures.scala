@@ -60,8 +60,8 @@ object SparkFeatures{
   2. Projecting away columns and inner fields not needed by the specified schema.
   3. Casting columns and inner fields to match the expected data types
    */
-  def datasetToStructType(sparkSession: SparkSession): Unit ={
-    import sparkSession.implicits._
+  def datasetToStructType(spark: SparkSession): Unit ={
+    import spark.implicits._
 
     val innerFields = new StructType().add("Name", StringType).add("ID", StringType)
     val schema = new StructType().add("struct", innerFields, nullable = false)
@@ -86,6 +86,18 @@ object SparkFeatures{
   }
 
   /*
+  Now we can use the OFFSET clause in SQL queries with Apache Spark 3.4. Before this version, we could issue queries and constrain the
+  number of rows that come back using the LIMIT clause. Now we can do that, but discard the first N rows with the OFFSET clause
+  as well! Apache Spark will create and execute an efficient query plan to minimize the amount of work needed for this operation.
+  It is commonly used for pagination, but also serves other purposes.
+   */
+  def offsetClause(spark: SparkSession): Unit ={
+    spark.sql("CREATE TABLE test_offset_clause (id INT, name STRING) USING PARQUET")
+    spark.sql("INSERT INTO test_offset_clause values (1001, 'Ashutosh'), (1002, 'Kumar'), (1003, 'Sinha')")
+    spark.sql("SELECT id, name FROM test_offset_clause ORDER BY ID LIMIT 1 OFFSET 1").show(false)
+  }
+
+  /*
    When you run this program the first time, a 'spark-warehouse' directory gets created. Subsequent runs will fail.
    So, I have included a couple of lines to delete the 'spark-warehouse' directory during every run.
    Happy Learning!!!
@@ -100,5 +112,6 @@ object SparkFeatures{
     columnAliasReference(spark)
     datasetToStructType(spark)
     parameterizedSQL(spark)
+    offsetClause(spark)
   }
 }
