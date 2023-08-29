@@ -4,7 +4,7 @@ This repository contains demo code for new features included in Spark 3.4.
 # Below are the links to my Spark3.4 posts on LinkedIn
 [_**Spark 3.4 - Summary of all the new features**_](https://www.linkedin.com/posts/ashutosh-kumar-852646165_apachespark-dataengineering-newfeatures-activity-7053286268683649024-MxaC?utm_source=share&utm_medium=member_desktop)
 
-[_**Spark 3.4 - Spark Connect in Action**_)](https://www.linkedin.com/posts/ashutosh-kumar-852646165_spark-connect-in-actionapache-spark-34-activity-7060835372762599424-4S6v?utm_source=share&utm_medium=member_desktop)
+[_**Spark 3.4 - Spark Connect in Action**_](https://www.linkedin.com/posts/ashutosh-kumar-852646165_spark-connect-in-actionapache-spark-34-activity-7060835372762599424-4S6v?utm_source=share&utm_medium=member_desktop)
 
 [Part-1 (_**Spark 3.4 - DEFAULT values**_)](https://www.linkedin.com/posts/ashutosh-kumar-852646165_dataengineering-apachespark-bigdataengineer-activity-7053636415603027968-ZLmo?utm_source=share&utm_medium=member_desktop)
 
