@@ -16,7 +16,7 @@ This repository contains demo code for new features included in Spark 3.4.
 
 [Part-5 (_**Spark 3.4 - Parameterized SQL Queries**_)](https://www.linkedin.com/posts/ashutosh-kumar-852646165_dataengineering-apachespark-bigdataengineer-activity-7056825359643668481-2WnD?utm_source=share&utm_medium=member_desktop)
 
-[Part-6 (_**Spark 3.4 - OFFSET clause SQL Queries**_)](https://www.linkedin.com/posts/ashutosh-kumar-852646165_dataengineering-apachespark-bigdataengineer-activity-7059171756082671618-J0S3?utm_source=share&utm_medium=member_desktop)
+[Part-6 (_**Spark 3.4 - OFFSET clause in SQL Queries**_)](https://www.linkedin.com/posts/ashutosh-kumar-852646165_dataengineering-apachespark-bigdataengineer-activity-7059171756082671618-J0S3?utm_source=share&utm_medium=member_desktop)
 
 [Part-7 (_**Spark 3.4 - Memory Profiler for PySpark UDFs**_)](https://www.linkedin.com/posts/ashutosh-kumar-852646165_dataengineering-apachespark-bigdataengineer-activity-7060185189288738816-_Nnz?utm_source=share&utm_medium=member_desktop)
 
